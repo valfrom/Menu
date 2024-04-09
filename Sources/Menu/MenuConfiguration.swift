@@ -64,6 +64,7 @@ public protocol Configuration {
     var appearancePosition: Position                        { get }
     var presentingOffset: CGFloat                           { get }
     var presentingOffsetX: CGFloat                          { get }
+    var presentingOffsetY: CGFloat                          { get }
     var animationDuration: TimeInterval                     { get }
     var contentEdgeInsets: NSEdgeInsets                     { get }
     var maximumContentHeight: CGFloat?                      { get }
@@ -132,6 +133,10 @@ open class MenuConfiguration: Configuration {
     }
 
     open var presentingOffsetX: CGFloat {
+        return 0.0
+    }
+
+    open var presentingOffsetY: CGFloat {
         return 0.0
     }
 
