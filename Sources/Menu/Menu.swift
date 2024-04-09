@@ -232,16 +232,18 @@ public final class Menu {
         var additionalYOffset = configuration.appearsBelowSender ? NSHeight(view.frame) : 0
         additionalYOffset += abs(configuration.presentingOffset)
 
+        let additionalXOffset = configuration.presentingOffsetX
+
         let newFrame: NSRect
         switch configuration.appearancePosition {
         case .rightBottom:
-            newFrame = NSRect(x: origin.x, y: origin.y - NSHeight(window.frame) - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset, y: origin.y - NSHeight(window.frame) - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         case .rightTop:
-            newFrame = NSRect(x: origin.x, y: origin.y + additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset, y: origin.y + additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         case .leftTop:
-            newFrame = NSRect(x: origin.x - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         case .leftBottom:
-            newFrame = NSRect(x: origin.x - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y - NSHeight(window.frame) - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y - NSHeight(window.frame) - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         }
 
         window.setFrame(newFrame, display: true, animate: false)
