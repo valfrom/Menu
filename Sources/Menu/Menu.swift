@@ -229,21 +229,22 @@ public final class Menu {
         let rectInWindow = NSRect(origin: locationInWindow, size: CGSize(width: NSWidth(view.frame), height: NSHeight(view.frame)))
         let rectInScreen = parentWindow.convertToScreen(rectInWindow)
         let origin = rectInScreen.origin
-        var additionalYOffset = configuration.appearsBelowSender ? NSHeight(view.frame) : 0
-        additionalYOffset += abs(configuration.presentingOffset)
+        var addYOffset = configuration.appearsBelowSender ? NSHeight(view.frame) : 0
+        addYOffset += abs(configuration.presentingOffset)
 
         let additionalXOffset = configuration.presentingOffsetX
+        let additionalYOffset = configuration.presentingOffsetY
 
         let newFrame: NSRect
         switch configuration.appearancePosition {
         case .rightBottom:
-            newFrame = NSRect(x: origin.x + additionalXOffset, y: origin.y - NSHeight(window.frame) - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset, y: origin.y + additionalYOffset - NSHeight(window.frame) - addYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         case .rightTop:
-            newFrame = NSRect(x: origin.x + additionalXOffset, y: origin.y + additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset, y: origin.y + additionalYOffset + addYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         case .leftTop:
-            newFrame = NSRect(x: origin.x + additionalXOffset - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y + additionalYOffset - addYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         case .leftBottom:
-            newFrame = NSRect(x: origin.x + additionalXOffset - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y - NSHeight(window.frame) - additionalYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
+            newFrame = NSRect(x: origin.x + additionalXOffset - NSWidth(window.frame) + NSWidth(view.frame), y: origin.y + additionalYOffset - NSHeight(window.frame) - addYOffset, width: NSWidth(view.frame), height: NSHeight(window.frame))
         }
 
         window.setFrame(newFrame, display: true, animate: false)
